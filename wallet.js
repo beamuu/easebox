@@ -7,6 +7,8 @@ const crypto = require('crypto')
 const { getACODE } = require('./middlewares/auth')
 
 
+let PWD
+
 const multiLinePrompt = ask => {
     const lines = ask.split(/\r?\n/);
     const promptLine = lines.pop();
@@ -77,10 +79,9 @@ class Wallet {
             console.log(colors.black.bgRed('!! Password not match !!'))
             process.exit()
         }
+        PWD = input
         return 
     }
-
-
 
     #newAccount() {
 
@@ -105,7 +106,7 @@ class Wallet {
     }
 
 
-    #loadAccountFromMnemonic() {
+    #initAccountFromMnemonic() {
         const mp = prompt("Enter your mnemonic phrase: ")
         var _n
         try {
@@ -120,7 +121,7 @@ class Wallet {
 
 
     #loadAccountFromPrivateKey() {
-
+        
     }
 
 
@@ -141,7 +142,7 @@ class Wallet {
                 this.#newAccount()
                 break;
             case 2:
-                this.#loadAccountFromMnemonic()
+                this.#initAccountFromMnemonic()
                 break;
             case 3:
                 break;
